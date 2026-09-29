@@ -4,7 +4,6 @@ import os
 file_name = "booking.txt"
 trains = {"12345":["Aditya Sharma Express","Gwalior","Reshampura","1:10","6:45",900,50],"12346":["Duronto Express","Nagpur","Mumbai","4:15","9:30",800,65],"69069":["Harshit Express","Karandi","Bhusdapur","9:44","20:00",700,70],"11001":["Kerala Express","Delhi","Kerela","3:15","23.45",1200,80], "12809": ["Mumbai Mail", "Tatanagar", "Bhopal", "08:15", "06:30", 1200, 50],"12175": ["Chambal Express", "Gwalior", "Bhopal", "14:30", "21:45", 500, 45],"18237": ["Chhattisgarh Express", "Bilaspur", "Bhopal", "20:10", "09:30", 900, 60],"12001": ["Shatabdi Express", "New Delhi", "Bhopal", "06:00", "14:00", 700, 40],"12951": ["Mumbai Rajdhani", "Mumbai", "New Delhi", "17:00", "08:35", 1380, 35]}
 bookings = {}
-# Load old bookings
 def load_data():
     if not os.path.exists(file_name):
         return
@@ -14,7 +13,6 @@ def load_data():
         if len(x) == 9:
             pnr = x[0]
             bookings[pnr] = {"train": x[1],"name": x[2],"age": x[3],"gender": x[4],"class": x[5],"num": int(x[6]),"fare": float(x[7]),"status": x[8]}
-# Save bookings
 def save_data():
     f = open(file_name, "w")
     for pnr in bookings:
@@ -22,13 +20,11 @@ def save_data():
         line = (pnr + "|" +b["train"] + "|" + b["name"] + "|" + b["age"] + "|" + b["gender"] + "|" + b["class"] + "|" + str(b["num"]) + "|" + str(b["fare"]) + "|" + b["status"] + "\n")
         f.write(line)
     f.close()
-# Generate PNR
 def get_pnr():
     while True:
         pnr = str(random.randint(1000000000, 9999999999))
         if pnr not in bookings:
             return pnr
-# Show all trains
 def show_trains():
     print("\n" + "=" * 75)
     print("                         TRAIN LIST")
@@ -38,7 +34,6 @@ def show_trains():
     for no in trains:
         t = trains[no]
         print(no, "   ",t[0], " " * (20 - len(t[0])),t[1], " " * (10 - len(t[1])),t[2], " " * (10 - len(t[2])),t[6])
-# Show one train
 def train_details(no):
     t = trains[no]
     print("\nTrain Number :", no)
@@ -49,7 +44,6 @@ def train_details(no):
     print("Arrival      :", t[4])
     print("Distance     :", t[5], "km")
     print("Seats        :", t[6])
-# Search train
 def search_train():
     print("\n----- SEARCH TRAIN -----")
     frm = input("From: ").lower()
@@ -62,7 +56,6 @@ def search_train():
             found = True
     if not found:
         print("No train found.")
-# Calculate fare
 def fare(dist, cls, num):
     if cls == "Sleeper":
         rate = 1
@@ -73,7 +66,6 @@ def fare(dist, cls, num):
     else:
         rate = 4
     return dist * rate * num
-# Book ticket
 def book():
     print("\n----- BOOK TICKET -----")
     show_trains()
@@ -136,7 +128,6 @@ def book():
     print("Class:", cls)
     print("Passengers:", num)
     print("Fare:", total)
-# Display one booking
 def show_booking(pnr):
     b = bookings[pnr]
     t = trains[b["train"]]
@@ -155,7 +146,6 @@ def show_booking(pnr):
     print("Fare       :", b["fare"])
     print("Status     :", b["status"])
     print("=" * 45)
-# View all bookings
 def my_bookings():
     print("\n----- MY BOOKINGS -----")
     if len(bookings) == 0:
@@ -168,14 +158,12 @@ def my_bookings():
             found = True
     if not found:
         print("No active bookings.")
-# Check PNR
 def check_pnr():
     pnr = input("\nEnter PNR: ")
     if pnr in bookings:
         show_booking(pnr)
     else:
         print("PNR not found.")
-# Cancel ticket
 def cancel():
     print("\n----- CANCEL TICKET -----")
     pnr = input("Enter PNR: ")
